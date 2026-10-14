@@ -100,7 +100,12 @@ public class LouvorFragment extends BaseFragment {
         setTitle(getString(R.string.louvor_titulo));
     }
 
-    /** Botão largo e alto, fácil de acertar com o dedo. */
+    /**
+     * Cria um botão de busca rápida largo e alto, fácil de acertar com o dedo.
+     *
+     * @param texto o texto do botão, que também é o termo buscado
+     * @return o botão pronto para entrar na lista
+     */
     private TextView criarBotaoAtalho(@NonNull final String texto) {
         final Context ctx = requireContext();
         final TextView botao = new TextView(ctx);
@@ -147,7 +152,12 @@ public class LouvorFragment extends BaseFragment {
                 ServiceList.YouTube.getServiceId(), comFiltro(texto.trim()));
     }
 
-    /** Acrescenta "louvor" quando a busca ainda não indica música gospel. */
+    /**
+     * Acrescenta "louvor" quando a busca ainda não indica música gospel.
+     *
+     * @param texto o que a pessoa falou ou digitou
+     * @return o texto da busca com o filtro de louvor
+     */
     static String comFiltro(@NonNull final String texto) {
         final String minusculo = texto.toLowerCase(PT_BR);
         if (minusculo.contains(FILTRO) || minusculo.contains("gospel")
