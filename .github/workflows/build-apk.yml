@@ -22,7 +22,24 @@ jobs:
           cache: gradle
 
       - name: Compilar
-        run: ./gradlew assembleDebug --stacktrace -DskipFormatKtlint
+        shell: bash
+        run: |
+          set -o pipefail
+          ./gradlew assembleDebug --stacktrace -DskipFormatKtlint 2>&1 | tee build.log
+
+      - name: Enviar log do erro
+        if: failure()
+        shell: bash
+        run: |
+          grep -n -B2 -A8 -E "error:|FAILED|What went wrong|e: " build.log | head -400 > erro.txt || true
+          tail -150 build.log >> erro.txt
+          git config user.name "build-bot"
+          git config user.email "build-bot@users.noreply.github.com"
+          git checkout --orphan build-log
+          git rm -rf --cached . > /dev/null
+          git add -f erro.txt
+          git commit -m "Log do build ${{ github.run_number }}"
+          git push -f origin build-log
 
       - name: Renomear APK
         run: |
