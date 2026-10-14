@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="louvor_titulo">Louvor</string>
+    <string name="louvor_subtitulo">Toque no botão e fale o nome da música</string>
+    <string name="louvor_voz_botao">Falar</string>
+    <string name="louvor_voz_pergunta">Qual louvor você quer ouvir?</string>
+    <string name="louvor_voz_indisponivel">A busca por voz não está disponível neste celular. Digite o nome da música.</string>
+    <string name="louvor_ou_digite">Ou digite aqui:</string>
+    <string name="louvor_busca_dica">Nome da música ou cantor</string>
+    <string name="louvor_atalhos_titulo">Buscas rápidas</string>
+    <string name="louvor_page_summary">Louvor (busca de música gospel)</string>
+    <string-array name="louvor_atalhos">
+        <item>Adoração</item>
+        <item>Hinos da Harpa Cristã</item>
+        <item>Louvores antigos</item>
+        <item>Louvor para orar</item>
+        <item>Celebração</item>
+    </string-array>
+</resources>

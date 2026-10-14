@@ -1,0 +1,44 @@
+name: Gerar APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Java 21
+        uses: actions/setup-java@v5
+        with:
+          java-version: 21
+          distribution: temurin
+          cache: gradle
+
+      - name: Compilar
+        run: ./gradlew assembleDebug --stacktrace -DskipFormatKtlint
+
+      - name: Renomear APK
+        run: |
+          mkdir -p saida
+          cp app/build/outputs/apk/debug/*.apk saida/Louvor.apk
+
+      - name: Guardar APK
+        uses: actions/upload-artifact@v7
+        with:
+          name: Louvor-apk
+          path: saida/Louvor.apk
+
+      - name: Publicar na página de Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: Louvor (build ${{ github.run_number }})
+          body: Toque em Louvor.apk abaixo para baixar e instalar no celular.
+          files: saida/Louvor.apk
